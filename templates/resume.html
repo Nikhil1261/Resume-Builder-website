@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.fullname or 'My Resume' }} — {{ label }} Resume</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resume.css') }}">
+</head>
+<body style="background:#e2e8f2; padding:50px 20px;">
+
+<div class="resume-doc theme-{{ theme }} layout-{{ layout }}">
+    <div class="resume-shell">
+
+        <header class="r-header">
+            <h1 class="r-name">{{ data.fullname or 'Your Name' }}</h1>
+            <div class="r-contact">
+                <span>{{ data.email }}</span>
+                <span>{{ data.phone }}</span>
+                <span>{{ data.location }}</span>
+                <span>{{ data.linkedin }}</span>
+            </div>
+        </header>
+
+        <div class="r-body">
+            <aside class="r-aside">
+                <section class="r-block">
+                    <h2>Skills</h2>
+                    <ul class="r-skills">
+                        {% for skill in data.skills_list %}
+                        <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+
+                <section class="r-block">
+                    <h2>Education</h2>
+                    <div class="r-text">{{ data.education }}</div>
+                </section>
+
+                <section class="r-block">
+                    <h2>Certifications</h2>
+                    <div class="r-text">{{ data.certifications }}</div>
+                </section>
+            </aside>
+
+            <main class="r-main">
+                <section class="r-block">
+                    <h2>Summary</h2>
+                    <p>{{ data.summary }}</p>
+                </section>
+
+                <section class="r-block">
+                    <h2>Experience</h2>
+                    <div class="r-text">{{ data.experience }}</div>
+                </section>
+
+                <section class="r-block">
+                    <h2>Projects</h2>
+                    <div class="r-text">{{ data.projects }}</div>
+                </section>
+            </main>
+        </div>
+
+    </div>
+</div>
+
+<div class="r-actions no-print">
+    <button class="btn-download" onclick="window.print()">⬇ Download / Print PDF</button>
+    <a class="btn-edit" href="{{ url_for('form', template_name=template_name) }}?id={{ resume_id }}">Edit This Resume</a>
+    <a class="btn-home" href="{{ url_for('home') }}">Back Home</a>
+</div>
+
+</body>
+</html>

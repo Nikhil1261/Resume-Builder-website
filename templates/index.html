@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ResumeBuilder</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="#templates">Templates</a></li>
+            <li><a href="{{ url_for('resumes') }}">My Resumes</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Create Professional Resumes<br>In Minutes</h1>
+        <p>
+            Build ATS-friendly resumes with modern templates,
+            edit them live as you type, and download as PDF.
+        </p>
+        <div class="hero-buttons">
+            <a href="#templates" class="btn-primary">Create Resume</a>
+            <a href="{{ url_for('resumes') }}" class="btn-secondary">My Resumes</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <h3>Live Preview</h3>
+            <p>Watch your resume update as you type — no waiting, no reloads.</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚡ Fast Builder</h3>
+            <p>Create resumes within minutes.</p>
+        </div>
+        <div class="feature-card">
+            <h3>⬇ PDF Download</h3>
+            <p>Download resumes instantly.</p>
+        </div>
+    </section>
+
+    <section class="templates-section" id="templates">
+        <h2>Choose Your Resume Template</h2>
+        <p class="subtitle">Select a design that matches your career goals</p>
+
+        <div class="templates-grid">
+            {% for key, info in templates.items() %}
+            <div class="template-card">
+                <img src="{{ url_for('static', filename='images/' ~ key ~ '-template.png') }}"
+                     alt="{{ info.label }} Template">
+                <h3>{{ info.label }}</h3>
+                <a href="{{ url_for('preview_template', template_name=key) }}" class="preview-btn">
+                    Preview Template
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Resume Builder | Built with Flask</p>
+    </footer>
+
+</body>
+</html>

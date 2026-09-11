@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resumes</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="{{ url_for('home') }}" class="logo">ResumeBuilder</a>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}#templates">Templates</a></li>
+        <li><a href="{{ url_for('resumes') }}">My Resumes</a></li>
+    </ul>
+</nav>
+
+<div class="resumes-page">
+    <h1>My Resumes</h1>
+
+    {% if resumes|length == 0 %}
+    <div class="empty-state">
+        <p>You haven't generated any resumes yet.</p>
+        <br>
+        <a href="{{ url_for('home') }}#templates" class="btn-primary">Choose a Template</a>
+    </div>
+    {% else %}
+        {% for r in resumes %}
+        <div class="resume-row">
+            <div class="resume-row-info">
+                <h3>{{ r.fullname or 'Untitled' }}</h3>
+                <span>{{ templates[r.template].label }} template &middot; updated {{ r.updated_at[:16].replace('T', ' ') }}</span>
+            </div>
+            <div class="resume-row-actions">
+                <a class="action-view" href="{{ url_for('view_resume', resume_id=r.id) }}">View</a>
+                <a class="action-edit" href="{{ url_for('form', template_name=r.template, id=r.id) }}">Edit</a>
+                <form action="{{ url_for('delete_resume', resume_id=r.id) }}" method="POST"
+                      onsubmit="return confirm('Delete this resume? This cannot be undone.');">
+                    <button class="action-delete" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+</body>
+</html>

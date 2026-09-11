@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ label }} Template</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">ResumeBuilder</div>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}#templates">Templates</a></li>
+        <li><a href="{{ url_for('resumes') }}">My Resumes</a></li>
+    </ul>
+</nav>
+
+<section class="template-preview-page">
+
+    <div class="preview-left">
+        <img src="{{ image_path }}" alt="{{ label }} Template">
+    </div>
+
+    <div class="preview-right">
+        <span class="badge">ATS Friendly</span>
+        <h1>{{ label }} Template</h1>
+        <p>
+            A professional resume template designed to highlight
+            your skills, experience and achievements in a clean layout.
+        </p>
+
+        <h2>Template Features</h2>
+        <ul>
+            <li>✅ ATS Optimized</li>
+            <li>✅ Professional Layout</li>
+            <li>✅ Live Editing As You Type</li>
+            <li>✅ PDF Download Support</li>
+            <li>✅ Freshers &amp; Experienced</li>
+        </ul>
+
+        <a href="{{ url_for('form', template_name=template_name) }}" class="btn-primary">
+           Use This Template
+        </a>
+    </div>
+
+</section>
+
+</body>
+</html>

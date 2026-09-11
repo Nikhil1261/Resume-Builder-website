@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your {{ label }} Resume</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resume.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="{{ url_for('home') }}" class="logo">ResumeBuilder</a>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}#templates">Templates</a></li>
+        <li><a href="{{ url_for('resumes') }}">My Resumes</a></li>
+    </ul>
+</nav>
+
+<div class="builder-page">
+
+    <div class="builder-header">
+        <h1>Editing your {{ label }} resume</h1>
+        <p>Type on the left — watch the resume update on the right, live.</p>
+    </div>
+
+    <div class="builder-grid">
+
+        <!-- ===================== FORM ===================== -->
+        <div class="form-container">
+            <h1>Your Details</h1>
+            <p class="form-sub">Nothing is saved until you click Generate.</p>
+
+            <form id="resume-form" action="{{ url_for('generate_resume', template_name=template_name) }}" method="POST">
+
+                {% if resume_id %}
+                <input type="hidden" name="resume_id" value="{{ resume_id }}">
+                {% endif %}
+
+                <input type="text" id="f-fullname" name="fullname" placeholder="Full Name"
+                       value="{{ resume.fullname if resume else '' }}" required>
+
+                <input type="email" id="f-email" name="email" placeholder="Email Address"
+                       value="{{ resume.email if resume else '' }}" required>
+
+                <input type="text" id="f-phone" name="phone" placeholder="Phone Number"
+                       value="{{ resume.phone if resume else '' }}" required>
+
+                <input type="text" id="f-location" name="location" placeholder="Location"
+                       value="{{ resume.location if resume else '' }}">
+
+                <input type="text" id="f-linkedin" name="linkedin" placeholder="LinkedIn Profile"
+                       value="{{ resume.linkedin if resume else '' }}">
+
+                <textarea id="f-summary" name="summary"
+                    placeholder="Professional Summary">{{ resume.summary if resume else '' }}</textarea>
+
+                <textarea id="f-education" name="education"
+                    placeholder="Education">{{ resume.education if resume else '' }}</textarea>
+
+                <textarea id="f-skills" name="skills"
+                    placeholder="Skills (comma separated)">{{ resume.skills if resume else '' }}</textarea>
+
+                <textarea id="f-projects" name="projects"
+                    placeholder="Projects">{{ resume.projects if resume else '' }}</textarea>
+
+                <textarea id="f-experience" name="experience"
+                    placeholder="Work Experience">{{ resume.experience if resume else '' }}</textarea>
+
+                <textarea id="f-certifications" name="certifications"
+                    placeholder="Certifications">{{ resume.certifications if resume else '' }}</textarea>
+
+                <button type="submit">Generate Resume</button>
+            </form>
+        </div>
+
+        <!-- ===================== LIVE PREVIEW ===================== -->
+        <div>
+            <div class="preview-pane-label">Live Preview</div>
+            <div class="preview-pane-wrap">
+                <div class="live-preview-scale">
+                    <div class="resume-doc theme-{{ template_name }} layout-{{ layout }}">
+                        <div class="resume-shell">
+
+                            <header class="r-header">
+                                <h1 class="r-name" id="p-fullname">Your Name</h1>
+                                <div class="r-contact">
+                                    <span id="p-email"></span>
+                                    <span id="p-phone"></span>
+                                    <span id="p-location"></span>
+                                    <span id="p-linkedin"></span>
+                                </div>
+                            </header>
+
+                            <div class="r-body">
+                                <aside class="r-aside">
+                                    <section class="r-block">
+                                        <h2>Skills</h2>
+                                        <ul class="r-skills" id="p-skills"></ul>
+                                    </section>
+                                    <section class="r-block">
+                                        <h2>Education</h2>
+                                        <div class="r-text" id="p-education"></div>
+                                    </section>
+                                    <section class="r-block">
+                                        <h2>Certifications</h2>
+                                        <div class="r-text" id="p-certifications"></div>
+                                    </section>
+                                </aside>
+
+                                <main class="r-main">
+                                    <section class="r-block">
+                                        <h2>Summary</h2>
+                                        <p id="p-summary"></p>
+                                    </section>
+                                    <section class="r-block">
+                                        <h2>Experience</h2>
+                                        <div class="r-text" id="p-experience"></div>
+                                    </section>
+                                    <section class="r-block">
+                                        <h2>Projects</h2>
+                                        <div class="r-text" id="p-projects"></div>
+                                    </section>
+                                </main>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/live-preview.js') }}"></script>
+</body>
+</html>
