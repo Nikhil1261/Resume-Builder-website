@@ -223,35 +223,56 @@ body{
     }
 }
 
-/* ================= MOBILE NAVBAR ================= */
+/* ================= MOBILE RESPONSIVE ================= */
 
 @media (max-width: 700px) {
 
+    /* Prevent horizontal scrolling */
+    html,
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* ---------- NAVBAR ---------- */
+
     .navbar {
-        padding: 18px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .logo {
-        font-size: 24px;
+        font-size: 26px;
+        text-align: center;
     }
 
     .nav-links {
-        gap: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px 18px;
         margin: 0;
         padding: 0;
     }
 
     .nav-links a {
-        font-size: 16px;
+        font-size: 15px;
+        white-space: nowrap;
     }
 
-}
-/* ================= MOBILE HERO ================= */
 
-@media (max-width: 700px) {
+    /* ---------- HERO ---------- */
 
     .hero {
-        padding: 60px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 55px 20px;
     }
 
     .hero h1 {
@@ -261,12 +282,16 @@ body{
     }
 
     .hero p {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
         font-size: 17px;
         line-height: 1.6;
+        margin: 0 auto;
     }
 
     .hero-buttons {
-        margin-top: 25px;
+        margin-top: 28px;
     }
 
     .btn-primary,
@@ -274,6 +299,42 @@ body{
         font-size: 16px;
         padding: 13px 25px;
         margin: 7px;
+    }
+
+
+    /* ---------- TEMPLATES ---------- */
+
+    .templates-section {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 60px 20px;
+    }
+
+    .templates-section h2 {
+        font-size: 36px;
+    }
+
+    .subtitle {
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .templates-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+
+    /* ---------- FEATURES ---------- */
+
+    .features {
+        padding: 40px 20px;
+        gap: 20px;
+    }
+
+    .feature-card {
+        width: 100%;
+        box-sizing: border-box;
     }
 
 }
